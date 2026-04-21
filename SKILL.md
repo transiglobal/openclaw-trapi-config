@@ -214,6 +214,15 @@ sessions_spawn(
 4. Patch 模型到 `trapi.models`，别名到 `agents.defaults.models`
 5. 验证
 
+## 参考文档
+
+遇到问题时，读取 `references/custom-provider-config.md` 获取 OpenClaw 官方 Custom Provider 配置参考。
+
+### 在线文档
+
+- 模型与 Provider：https://docs.openclaw.ai/concepts/models
+- Model Providers：https://docs.openclaw.ai/concepts/model-providers
+
 ## 故障排查
 
 - **401/403**：API Key 无效或过期 — 请用户核实
