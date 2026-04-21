@@ -1,43 +1,37 @@
 ---
 name: openclaw-trapi-config
 description: |
-  Configure Transiglobal's "trapi" custom provider and models in OpenClaw. Guides users through adding the provider, required models, and aliases to openclaw.json. Also supports dynamically adding new models to an existing trapi provider. Triggers on phrases like "配置 trapi", "安装 trapi", "添加 trapi provider", "trapi 配置", "Transiglobal API", "配置传米 API", "trapi 添加模型", "trapi add model", or when setting up GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / K2.6-code-preview via the trapi provider. Use when a user wants to add the Transiglobal relay API (lapi.transiglobal.com) as a model provider, or add new models to an existing trapi provider.
+  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / K2.6-code-preview 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
 ---
 
-# Transiglobal API (trapi) Provider Configuration
+# trapi Provider 配置指南
 
-Configure the `trapi` custom provider with Anthropic Messages API format on any OpenClaw instance.
+在任意 OpenClaw 实例上配置 `trapi` 自定义 Provider，使用 Anthropic Messages API 格式。
 
-## Provider Info
+## 服务信息
 
-- **Provider name**: `trapi`
-- **Base URL**: `https://lapi.transiglobal.com`
-- **API format**: `anthropic-messages`
-- **Owner**: 传米科技 (Transiglobal)
+- **Provider 名称**：`trapi`
+- **Base URL**：`https://lapi.transiglobal.com`
+- **API 格式**：`anthropic-messages`
+- **运营方**：传米科技（Transiglobal）
 
-## Prerequisites
+## 前置条件
 
-1. User **must provide their own API key** — never use a default or hardcoded key
-2. If user does not provide an API key, **stop immediately** and ask for it; do not proceed without one
-3. OpenClaw must be installed and running on the target machine
+1. 用户**必须提供自己的 API Key** —— 绝不使用默认或硬编码的密钥
+2. 如用户未提供 API Key，**立即停止**并要求提供；不可继续执行
+3. OpenClaw 必须已安装并运行
 
-## Step 1: Ask for API Key
+## 步骤 1：要求 API Key
 
-Before any configuration, ask the user for their `trapi` API key. Acceptable formats:
-- Direct paste of the key string
-- Key from environment variable (if the user prefers)
+进行任何配置前，先向用户索要 `trapi` API Key。接受形式：
+- 直接粘贴 Key 字符串
+- 通过环境变量引用
 
-If the user declines or fails to provide a key, end the workflow with a clear message: *"trapi provider 配置需要 API key，未提供无法继续。请获取 key 后重新运行。"*
+如用户拒绝或无法提供，以明确信息终止流程：*"trapi provider 配置需要 API Key，未提供无法继续。请获取 Key 后重新运行。"*
 
-## Step 2: Configure Provider
+## 步骤 2：配置 Provider
 
-Use `gateway config.patch` to add the `trapi` provider to `models.providers`. The patch targets:
-
-```
-models.providers.trapi
-```
-
-Patch JSON:
+使用 `gateway config.patch` 将 `trapi` provider 添加到 `models.providers`。
 
 ```json
 {
@@ -45,7 +39,7 @@ Patch JSON:
     "providers": {
       "trapi": {
         "baseUrl": "https://lapi.transiglobal.com",
-        "apiKey": "<USER_PROVIDED_API_KEY>",
+        "apiKey": "<用户提供的API_KEY>",
         "api": "anthropic-messages",
         "models": [
           {
@@ -95,9 +89,9 @@ Patch JSON:
 }
 ```
 
-## Step 3: Configure Model Aliases
+## 步骤 3：配置模型别名
 
-Use `gateway config.patch` to add aliases under `agents.defaults.models`:
+使用 `gateway config.patch` 添加别名到 `agents.defaults.models`：
 
 ```json
 {
@@ -114,105 +108,103 @@ Use `gateway config.patch` to add aliases under `agents.defaults.models`:
 }
 ```
 
-## Step 4: Apply and Restart
+## 步骤 4：应用配置
 
-Use `gateway config.patch` with `note` parameter to describe what was done. The gateway will hot-reload or restart automatically.
+使用 `gateway config.patch` 并附带 `note` 参数说明变更内容。Gateway 会自动热加载或重启。
 
-If patch is not available, fallback to `gateway config.apply` with the full config.
+## 步骤 5：逐个验证模型
 
-## Step 5: Validate Each Model
-
-After configuration is applied, validate all 4 models using subagent calls. Spawn a subagent for each model with a simple test prompt:
+配置生效后，使用 subagent 逐个验证 4 个模型：
 
 ```
 sessions_spawn(
-  model: "trapi/<MODEL_ID>",
+  model: "trapi/<模型ID>",
   task: "Reply with exactly: OK",
   runtime: "subagent"
 )
 ```
 
-Validate in order:
-1. `trapi/GLM-5-Turbo` (alias: glm5t)
-2. `trapi/GLM-5.1` (alias: glm51)
-3. `trapi/MiniMax-M2.7` (alias: mxm27)
-4. `trapi/K2.6-code-preview` (alias: kimi)
+验证顺序：
+1. `trapi/GLM-5-Turbo`（别名：glm5t）
+2. `trapi/GLM-5.1`（别名：glm51）
+3. `trapi/MiniMax-M2.7`（别名：mxm27）
+4. `trapi/K2.6-code-preview`（别名：kimi）
 
-### Validation Criteria
+### 验证标准
 
-For each model, the validation passes if:
-- The subagent returns a response (not an error/timeout)
-- The response contains text output
+每个模型验证通过的条件：
+- subagent 返回正常响应（非错误/超时）
+- 响应包含文本输出
 
-### Validation Report
+### 验证报告
 
-After all validations, provide a summary:
+所有模型验证完成后，输出汇总表：
 
-| Model | Alias | Status |
-|-------|-------|--------|
+| 模型 | 别名 | 状态 |
+|------|------|------|
 | GLM-5-Turbo | glm5t | ✅/❌ |
 | GLM-5.1 | glm51 | ✅/❌ |
 | MiniMax-M2.7 | mxm27 | ✅/❌ |
 | K2.6-code-preview | kimi | ✅/❌ |
 
-## Add New Model (trapi already configured)
+## 添加新模型（trapi 已配置时）
 
-Use this flow when `trapi` provider already exists and user wants to add one or more new models.
+当 trapi Provider 已存在，用户需要添加新模型时使用此流程。
 
-### Required from User
+### 用户需提供的信息
 
-| Field | Required | Default |
-|-------|----------|---------|
-| Model ID (full name) | ✅ Yes | — |
-| contextWindow | No | 200000 (200K) |
-| maxTokens | No | 64000 (64K) |
-| input types | No | `["text"]` (can add `"image"`) |
+| 字段 | 是否必填 | 默认值 |
+|------|---------|--------|
+| 模型 ID（全称） | ✅ 必填 | — |
+| contextWindow | 选填 | 200000（200K） |
+| maxTokens | 选填 | 64000（64K） |
+| input 类型 | 选填 | `["text"]`（可加 `"image"`） |
 
-### Alias Generation Rules
+### 别名生成规则
 
-Generate alias **≤ 5 characters**, following these priorities:
+生成 **≤ 5 字符**的别名，按以下优先级：
 
-1. **Known patterns** — derive from common abbreviations:
-   - `GLM-` → `glm`, `MiniMax-` → `mxm`, `K2.6` → `kimi`, `mimo` → `mimo`
-2. **Remove separators** — strip `-`, `.`, spaces: `GLM-5-Turbo` → `GLM5Turbo`
-3. **Take first 5 chars** of the cleaned string: `GLM5T`
-4. **Lowercase** the result: `glm5t`
-5. **If conflict** with existing alias, append a digit suffix: `glm5t2`
+1. **已知模式** — 从常见缩写推导：
+   - `GLM-` → `glm`，`MiniMax-` → `mxm`，`K2.6` → `kimi`，`mimo` → `mimo`
+2. **去除分隔符** — 去掉 `-`、`.`、空格：`GLM-5-Turbo` → `GLM5Turbo`
+3. **取前 5 字符**：`GLM5T`
+4. **转小写**：`glm5t`
+5. **冲突处理**：如与已有别名冲突，追加数字后缀：`glm5t2`
 
-### Existing Aliases (must not duplicate)
+### 已有别名（不可重复）
 
-| Model | Alias |
-|-------|-------|
+| 模型 | 别名 |
+|------|------|
 | GLM-5-Turbo | glm5t |
 | GLM-5.1 | glm51 |
 | MiniMax-M2.7 | mxm27 |
 | K2.6-code-preview | kimi |
 
-### Flow
+### 操作流程
 
-1. Ask user for **model ID** (full name)
-2. Ask if they want to customize contextWindow, maxTokens, or input types
-3. Generate alias using rules above
-4. Show user the proposed config and ask for confirmation
-5. Use `gateway config.patch` to add model to `models.providers.trapi.models` array
-6. Use `gateway config.patch` to add alias to `agents.defaults.models`
-7. Validate with subagent: `sessions_spawn(model: "trapi/<MODEL_ID>", task: "Reply with exactly: OK", runtime: "subagent")`
-8. Report result
+1. 向用户询问**模型 ID**（全称）
+2. 询问是否需要自定义 contextWindow、maxTokens 或 input 类型
+3. 按上述规则生成别名
+4. 向用户展示拟配置方案并确认
+5. `gateway config.patch` 添加模型到 `models.providers.trapi.models`
+6. `gateway config.patch` 添加别名到 `agents.defaults.models`
+7. subagent 验证：`sessions_spawn(model: "trapi/<模型ID>", task: "Reply with exactly: OK", runtime: "subagent")`
+8. 报告结果
 
-### Example: Adding "Qwen-3-Plus"
+### 示例：添加 "Qwen-3-Plus"
 
-User says: "给 trapi 加一个 Qwen-3-Plus"
+用户说："给 trapi 加一个 Qwen-3-Plus"
 
-1. Model ID: `Qwen-3-Plus`
-2. Defaults: contextWindow 200K, maxTokens 64K, input `["text"]`
-3. Alias: clean `Qwen3Plus` → `qwen3` (no conflict) → alias: `qwen3`
-4. Patch model into `trapi.models`, alias into `agents.defaults.models`
-5. Validate
+1. 模型 ID：`Qwen-3-Plus`
+2. 默认参数：contextWindow 200K，maxTokens 64K，input `["text"]`
+3. 别名：清理为 `Qwen3Plus` → `qwen3`（无冲突）→ 别名：`qwen3`
+4. Patch 模型到 `trapi.models`，别名到 `agents.defaults.models`
+5. 验证
 
-## Troubleshooting
+## 故障排查
 
-- **401/403**: API key invalid or expired — ask user to verify
-- **Connection timeout**: Check network access to `lapi.transiglobal.com`
-- **Model not found**: The model ID may have changed — check with Transiglobal
-- **config.patch conflict**: If `trapi` provider already exists, patch will merge; if aliases conflict, warn user
-- **Alias conflict**: Regenerate with numeric suffix and confirm with user
+- **401/403**：API Key 无效或过期 — 请用户核实
+- **连接超时**：检查到 `lapi.transiglobal.com` 的网络连通性
+- **Model not found**：模型 ID 可能已变更 — 联系传米科技确认
+- **config.patch 冲突**：trapi provider 已存在时 patch 会合并；别名冲突时警告用户
+- **别名冲突**：重新生成带数字后缀的别名并与用户确认
