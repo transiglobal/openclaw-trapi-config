@@ -24,6 +24,8 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 | MiniMax-M2.7 | `mxm27` | 文本 | 200K | 64K |
 | K2.6-code-preview | `kimi` | 文本 + 图片 | 200K | 64K |
 
+### 快捷切换模型
+
 ## 使用方式
 
 ### 安装技能

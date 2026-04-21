@@ -46,7 +46,7 @@ description: |
             "id": "GLM-5-Turbo",
             "name": "GLM-5-Turbo (Transiglobal)",
             "api": "anthropic-messages",
-            "reasoning": true,
+            "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
@@ -56,7 +56,7 @@ description: |
             "id": "GLM-5.1",
             "name": "GLM-5.1 (Transiglobal)",
             "api": "anthropic-messages",
-            "reasoning": true,
+            "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
@@ -66,7 +66,7 @@ description: |
             "id": "MiniMax-M2.7",
             "name": "MiniMax-M2.7 (Transiglobal)",
             "api": "anthropic-messages",
-            "reasoning": true,
+            "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
@@ -76,7 +76,7 @@ description: |
             "id": "K2.6-code-preview",
             "name": "K2.6 Code Preview (Transiglobal)",
             "api": "anthropic-messages",
-            "reasoning": true,
+            "reasoning": false,
             "input": ["text", "image"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
@@ -146,6 +146,19 @@ sessions_spawn(
 | GLM-5.1 | glm51 | ✅/❌ |
 | MiniMax-M2.7 | mxm27 | ✅/❌ |
 | K2.6-code-preview | kimi | ✅/❌ |
+
+## 步骤 6：使用指引
+
+配置完成并通过验证后，向用户展示快捷切换模型的使用方式：
+
+```
+/glm5t    → 切换到 GLM-5-Turbo（高性价比）
+/glm51    → 切换到 GLM-5.1（旗舰）
+/mxm27    → 切换到 MiniMax-M2.7
+/kimi     → 切换到 K2.6-code-preview（支持图片）
+```
+
+提示用户在对话中直接输入 `/alias` 即可快速切换模型。
 
 ## 添加新模型（trapi 已配置时）
 
