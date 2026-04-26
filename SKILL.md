@@ -21,6 +21,42 @@ description: |
 2. 如用户未提供 API Key，**立即停止**并要求提供；不可继续执行
 3. OpenClaw 必须已安装并运行
 
+## 步骤 0：检查已有配置
+
+**在执行任何配置操作前，必须先检查当前 OpenClaw 配置中是否已有 trapi provider 或部分模型/别名。** 避免重复配置，只补齐缺失部分。
+
+### 检查流程
+
+1. 使用 `gateway config.get` 获取当前 `models.providers.trapi` 配置
+2. 使用 `gateway config.get` 获取当前 `agents.defaults.models` 中的 trapi 别名
+3. 对比下表，列出三列状态：
+
+| 模型 | 别名 | Provider 已有 | 别名已有 |
+|------|------|:---:|:---:|
+| GLM-5-Turbo | glm5t | ✅/❌ | ✅/❌ |
+| GLM-5.1 | glm51 | ✅/❌ | ✅/❌ |
+| GLM-4.5-Air | glm45a | ✅/❌ | ✅/❌ |
+| MiniMax-M2 | mxm2 | ✅/❌ | ✅/❌ |
+| MiniMax-M2.7 | mxm27 | ✅/❌ | ✅/❌ |
+| K2.6-code-preview | kimi | ✅/❌ | ✅/❌ |
+| deepseek-v4-pro | dsv4p | ✅/❌ | ✅/❌ |
+| deepseek-v4-flash | dsv4f | ✅/❌ | ✅/❌ |
+| gpt-5.5 | gpt55 | ✅/❌ | ✅/❌ |
+
+### 检查结果处理
+
+- **全部已有**（Provider + 所有模型 + 所有别名）：告知用户已完整配置，无需操作
+- **Provider 已有，部分模型缺失**：只 patch 缺失的模型，不覆盖已有配置
+- **Provider 缺失**：按步骤 1-6 完整配置
+- **模型已有但别名缺失**：只 patch 缺失的别名
+- **API Key 需要更新**：即使用户提供了新 Key，也要先确认旧 Key 是否仍有效
+
+### 操作原则
+
+1. **绝不覆盖已有配置** — `config.patch` 是合并操作，但新模型如果 ID 与已有不同则追加
+2. **只补齐缺失部分** — 精确对比已有 vs 缺失，只 patch 差集
+3. **向用户展示补齐方案** — 明确列出将要添加/跳过的内容，等用户确认后再执行
+
 ## 步骤 1：要求 API Key
 
 进行任何配置前，先向用户索要 `trapi` API Key。接受形式：
@@ -63,6 +99,26 @@ description: |
             "maxTokens": 64000
           },
           {
+            "id": "GLM-4.5-Air",
+            "name": "GLM-4.5-Air (Transiglobal)",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 200000,
+            "maxTokens": 64000
+          },
+          {
+            "id": "MiniMax-M2",
+            "name": "MiniMax-M2 (Transiglobal)",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 200000,
+            "maxTokens": 64000
+          },
+          {
             "id": "MiniMax-M2.7",
             "name": "MiniMax-M2.7 (Transiglobal)",
             "api": "anthropic-messages",
@@ -78,6 +134,36 @@ description: |
             "api": "anthropic-messages",
             "reasoning": false,
             "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 200000,
+            "maxTokens": 64000
+          },
+          {
+            "id": "deepseek-v4-pro",
+            "name": "DeepSeek V4 Pro (Transiglobal)",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 200000,
+            "maxTokens": 64000
+          },
+          {
+            "id": "deepseek-v4-flash",
+            "name": "DeepSeek V4 Flash (Transiglobal)",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 200000,
+            "maxTokens": 64000
+          },
+          {
+            "id": "gpt-5.5",
+            "name": "GPT-5.5 (Transiglobal)",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
             "maxTokens": 64000
@@ -100,8 +186,13 @@ description: |
       "models": {
         "trapi/GLM-5-Turbo": { "alias": "glm5t" },
         "trapi/GLM-5.1": { "alias": "glm51" },
+        "trapi/GLM-4.5-Air": { "alias": "glm45a" },
+        "trapi/MiniMax-M2": { "alias": "mxm2" },
         "trapi/MiniMax-M2.7": { "alias": "mxm27" },
-        "trapi/K2.6-code-preview": { "alias": "kimi" }
+        "trapi/K2.6-code-preview": { "alias": "kimi" },
+        "trapi/deepseek-v4-pro": { "alias": "dsv4p" },
+        "trapi/deepseek-v4-flash": { "alias": "dsv4f" },
+        "trapi/gpt-5.5": { "alias": "gpt55" }
       }
     }
   }
@@ -127,8 +218,13 @@ sessions_spawn(
 验证顺序：
 1. `trapi/GLM-5-Turbo`（别名：glm5t）
 2. `trapi/GLM-5.1`（别名：glm51）
-3. `trapi/MiniMax-M2.7`（别名：mxm27）
-4. `trapi/K2.6-code-preview`（别名：kimi）
+3. `trapi/GLM-4.5-Air`（别名：glm45a）
+4. `trapi/MiniMax-M2`（别名：mxm2）
+5. `trapi/MiniMax-M2.7`（别名：mxm27）
+6. `trapi/K2.6-code-preview`（别名：kimi）
+7. `trapi/deepseek-v4-pro`（别名：dsv4p）
+8. `trapi/deepseek-v4-flash`（别名：dsv4f）
+9. `trapi/gpt-5.5`（别名：gpt55）
 
 ### 验证标准
 
@@ -144,18 +240,28 @@ sessions_spawn(
 |------|------|------|
 | GLM-5-Turbo | glm5t | ✅/❌ |
 | GLM-5.1 | glm51 | ✅/❌ |
+| GLM-4.5-Air | glm45a | ✅/❌ |
+| MiniMax-M2 | mxm2 | ✅/❌ |
 | MiniMax-M2.7 | mxm27 | ✅/❌ |
 | K2.6-code-preview | kimi | ✅/❌ |
+| deepseek-v4-pro | dsv4p | ✅/❌ |
+| deepseek-v4-flash | dsv4f | ✅/❌ |
+| gpt-5.5 | gpt55 | ✅/❌ |
 
 ## 步骤 6：使用指引
 
 配置完成并通过验证后，向用户展示快捷切换模型的使用方式：
 
 ```
+/glm45a   → 切换到 GLM-4.5-Air（轻量）
 /glm5t    → 切换到 GLM-5-Turbo（高性价比）
 /glm51    → 切换到 GLM-5.1（旗舰）
+/mxm2     → 切换到 MiniMax-M2
 /mxm27    → 切换到 MiniMax-M2.7
 /kimi     → 切换到 K2.6-code-preview（支持图片）
+/dsv4p    → 切换到 DeepSeek V4 Pro
+/dsv4f    → 切换到 DeepSeek V4 Flash（快速）
+/gpt55    → 切换到 GPT-5.5
 ```
 
 提示用户在对话中直接输入 `/alias` 即可快速切换模型。
@@ -188,10 +294,15 @@ sessions_spawn(
 
 | 模型 | 别名 |
 |------|------|
+| GLM-4.5-Air | glm45a |
 | GLM-5-Turbo | glm5t |
 | GLM-5.1 | glm51 |
+| MiniMax-M2 | mxm2 |
 | MiniMax-M2.7 | mxm27 |
 | K2.6-code-preview | kimi |
+| deepseek-v4-pro | dsv4p |
+| deepseek-v4-flash | dsv4f |
+| gpt-5.5 | gpt55 |
 
 ### 操作流程
 
