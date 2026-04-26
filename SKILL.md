@@ -42,7 +42,7 @@ description: |
 | deepseek-v4-pro | dsv4p | ✅/❌ | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ | ✅/❌ |
-| claude-opus-4.7 | ops47 | ✅/❌ | ✅/❌ |
+| claude-opus-4.7 | opus47 | ✅/❌ | ✅/❌ |
 
 ### 检查结果处理
 
@@ -204,7 +204,7 @@ description: |
         "trapi/deepseek-v4-pro": { "alias": "dsv4p" },
         "trapi/deepseek-v4-flash": { "alias": "dsv4f" },
         "trapi/gpt-5.5": { "alias": "gpt55" },
-        "trapi/claude-opus-4.7": { "alias": "ops47" }
+        "trapi/claude-opus-4.7": { "alias": "opus47" }
       }
     }
   }
@@ -237,7 +237,7 @@ sessions_spawn(
 7. `trapi/deepseek-v4-pro`（别名：dsv4p）
 8. `trapi/deepseek-v4-flash`（别名：dsv4f）
 9. `trapi/gpt-5.5`（别名：gpt55）
-10. `trapi/claude-opus-4.7`（别名：ops47）
+10. `trapi/claude-opus-4.7`（别名：opus47）
 
 ### 验证标准
 
@@ -260,7 +260,7 @@ sessions_spawn(
 | deepseek-v4-pro | dsv4p | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ |
-| claude-opus-4.7 | ops47 | ✅/❌ |
+| claude-opus-4.7 | opus47 | ✅/❌ |
 
 ## 步骤 6：使用指引
 
@@ -276,7 +276,7 @@ sessions_spawn(
 /dsv4p    → 切换到 DeepSeek V4 Pro
 /dsv4f    → 切换到 DeepSeek V4 Flash（快速）
 /gpt55    → 切换到 GPT-5.5
-/ops47    → 切换到 Claude Opus 4.7（最新旗舰）
+/opus47    → 切换到 Claude Opus 4.7（最新旗舰）
 ```
 
 提示用户在对话中直接输入 `/alias` 即可快速切换模型。
@@ -318,7 +318,7 @@ sessions_spawn(
 | deepseek-v4-pro | dsv4p |
 | deepseek-v4-flash | dsv4f |
 | gpt-5.5 | gpt55 |
-| claude-opus-4.7 | ops47 |
+| claude-opus-4.7 | opus47 |
 
 ### 操作流程
 

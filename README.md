@@ -28,7 +28,7 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 | deepseek-v4-pro | `dsv4p` | 文本 | 200K | 64K |
 | deepseek-v4-flash | `dsv4f` | 文本 | 200K | 64K |
 | gpt-5.5 | `gpt55` | 文本 | 200K | 64K |
-| claude-opus-4.7 | `ops47` | 文本 | 300K | 64K |
+| claude-opus-4.7 | `opus47` | 文本 | 300K | 64K |
 
 ## 快捷切换模型
 
@@ -42,7 +42,7 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 /dsv4p    → DeepSeek V4 Pro
 /dsv4f    → DeepSeek V4 Flash（快速）
 /gpt55    → GPT-5.5
-/ops47    → Claude Opus 4.7（最新旗舰）
+/opus47    → Claude Opus 4.7（最新旗舰）
 ```
 
 ## 使用方式
@@ -56,7 +56,7 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 技能会引导你完成：
 1. **提供 API Key**（必须提供，不会使用任何默认 key）
 2. **自动写入 Provider 配置**到 `openclaw.json`
-3. **注册模型别名**（glm5t / glm51 / mxm27 / kimi / dsv4p / dsv4f / gpt55 / ops47 等）
+3. **注册模型别名**（glm5t / glm51 / mxm27 / kimi / dsv4p / dsv4f / gpt55 / opus47 等）
 4. **逐个模型验证**，确保连通性
 5. **检查已有配置**，只补齐缺失部分，不重复配置
 
