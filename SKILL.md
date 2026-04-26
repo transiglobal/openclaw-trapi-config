@@ -54,18 +54,18 @@ description: |
 | deepseek-v4-pro | dsv4p | ✅/❌ | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ | ✅/❌ |
+| claude-opus-4.7 | ops47 | ✅/❌ | ✅/❌ |
 
 ### linkapi 模型
 
 | 模型 | 别名 | Provider 已有 | 别名已有 |
 |------|------|:---:|:---:|
-| claude-opus-4-6 | opus | ✅/❌ | ✅/❌ |
+| claude-opus-4.6 | opus | ✅/❌ | ✅/❌ |
 | [次]claude-opus-4-6 | copus | ✅/❌ | ✅/❌ |
 | claude-sonnet-4-6 | sonnet | ✅/❌ | ✅/❌ |
 | [次]claude-sonnet-4-6 | csonnet | ✅/❌ | ✅/❌ |
 | gemini-3.1-pro-preview | gemini | ✅/❌ | ✅/❌ |
 | [次]gemini-3.1-pro-preview | cgemini | ✅/❌ | ✅/❌ |
-| claude-opus-4.7 | ops47 | ✅/❌ | ✅/❌ |
 
 ### 检查结果处理
 
@@ -221,13 +221,13 @@ description: |
         "trapi/deepseek-v4-pro": { "alias": "dsv4p" },
         "trapi/deepseek-v4-flash": { "alias": "dsv4f" },
         "trapi/gpt-5.5": { "alias": "gpt55" },
+        "trapi/claude-opus-4.7": { "alias": "ops47" },
         "linkapi/claude-opus-4-6": { "alias": "opus" },
         "linkapi/[次]claude-opus-4-6": { "alias": "copus" },
         "linkapi/claude-sonnet-4-6": { "alias": "sonnet" },
         "linkapi/[次]claude-sonnet-4-6": { "alias": "csonnet" },
         "linkapi/gemini-3.1-pro-preview": { "alias": "gemini" },
-        "linkapi/[次]gemini-3.1-pro-preview": { "alias": "cgemini" },
-        "linkapi/claude-opus-4.7": { "alias": "ops47" }
+        "linkapi/[次]gemini-3.1-pro-preview": { "alias": "cgemini" }
       }
     }
   }
@@ -288,6 +288,7 @@ sessions_spawn(
 | deepseek-v4-pro | dsv4p | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ |
+| claude-opus-4.7 | ops47 | ✅/❌ |
 | claude-opus-4-6 | opus | ✅/❌ |
 | claude-sonnet-4-6 | sonnet | ✅/❌ |
 | gemini-3.1-pro-preview | gemini | ✅/❌ |
@@ -354,6 +355,7 @@ sessions_spawn(
 | deepseek-v4-pro | dsv4p |
 | deepseek-v4-flash | dsv4f |
 | gpt-5.5 | gpt55 |
+| claude-opus-4.7 | ops47 |
 
 #### linkapi 模型
 

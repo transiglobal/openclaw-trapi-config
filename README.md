@@ -43,6 +43,7 @@ OpenClaw 技能（Skill）：配置传米科技自定义 Provider（trapi + link
 | deepseek-v4-pro | `dsv4p` | 文本 | 200K | 64K |
 | deepseek-v4-flash | `dsv4f` | 文本 | 200K | 64K |
 | gpt-5.5 | `gpt55` | 文本 | 200K | 64K |
+| claude-opus-4.7 | `ops47` | 文本 | 300K | 64K |
 
 ### linkapi 模型
 
@@ -54,7 +55,6 @@ OpenClaw 技能（Skill）：配置传米科技自定义 Provider（trapi + link
 | [次]claude-sonnet-4-6 | `csonnet` | 文本 | 300K | 64K |
 | gemini-3.1-pro-preview | `gemini` | 文本 | 300K | 64K |
 | [次]gemini-3.1-pro-preview | `cgemini` | 文本 | 300K | 64K |
-| claude-opus-4.7 | `ops47` | 文本 | 300K | 64K |
 
 > `[次]` 前缀表示次级线路（备用节点），与主线路模型相同但走不同中转通道。
 
