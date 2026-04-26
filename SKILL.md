@@ -1,17 +1,29 @@
 ---
 name: openclaw-trapi-config
 description: |
-  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / K2.6-code-preview 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
+  配置传米科技自定义 Provider（trapi + linkapi）及模型。引导用户将 Provider 添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"、"配置 linkapi"、"添加 claude-opus-4.7"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / K2.6-code-preview / deepseek-v4-pro / deepseek-v4-flash / claude-opus-4.7 的配置。也可在 Provider 已存在时用于添加新模型。
 ---
 
-# trapi Provider 配置指南
+# trapi + linkapi Provider 配置指南
 
-在任意 OpenClaw 实例上配置 `trapi` 自定义 Provider，使用 Anthropic Messages API 格式。
+在任意 OpenClaw 实例上配置传米科技自定义 Provider：
+
+- **trapi**：国产大模型中转（GLM / MiniMax / K2.6 / DeepSeek / GPT），Anthropic Messages 格式
+- **linkapi**：海外模型中转（Claude / Gemini），Anthropic Messages 格式
 
 ## 服务信息
 
+### trapi（国产大模型中转）
+
 - **Provider 名称**：`trapi`
 - **Base URL**：`https://lapi.transiglobal.com`
+- **API 格式**：`anthropic-messages`
+- **运营方**：传米科技（Transiglobal）
+
+### linkapi（海外模型中转）
+
+- **Provider 名称**：`linkapi`
+- **Base URL**：`https://hk.linkapi.ai`
 - **API 格式**：`anthropic-messages`
 - **运营方**：传米科技（Transiglobal）
 
@@ -43,6 +55,18 @@ description: |
 | deepseek-v4-flash | dsv4f | ✅/❌ | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ | ✅/❌ |
 
+### linkapi 模型
+
+| 模型 | 别名 | Provider 已有 | 别名已有 |
+|------|------|:---:|:---:|
+| claude-opus-4-6 | opus | ✅/❌ | ✅/❌ |
+| [次]claude-opus-4-6 | copus | ✅/❌ | ✅/❌ |
+| claude-sonnet-4-6 | sonnet | ✅/❌ | ✅/❌ |
+| [次]claude-sonnet-4-6 | csonnet | ✅/❌ | ✅/❌ |
+| gemini-3.1-pro-preview | gemini | ✅/❌ | ✅/❌ |
+| [次]gemini-3.1-pro-preview | cgemini | ✅/❌ | ✅/❌ |
+| claude-opus-4.7 | ops47 | ✅/❌ | ✅/❌ |
+
 ### 检查结果处理
 
 - **全部已有**（Provider + 所有模型 + 所有别名）：告知用户已完整配置，无需操作
@@ -59,11 +83,15 @@ description: |
 
 ## 步骤 1：要求 API Key
 
-进行任何配置前，先向用户索要 `trapi` API Key。接受形式：
+进行任何配置前，先向用户索要 API Key。**trapi 和 linkapi 使用同一个 API Key。**
+
+接受形式：
 - 直接粘贴 Key 字符串
 - 通过环境变量引用
 
-如用户拒绝或无法提供，以明确信息终止流程：*"trapi provider 配置需要 API Key，未提供无法继续。请获取 Key 后重新运行。"*
+如用户拒绝或无法提供，以明确信息终止流程：*"Provider 配置需要 API Key，未提供无法继续。请获取 Key 后重新运行。"*
+
+> 如果只配置其中一个 Provider（如 linkapi），仍需提供 API Key。两个 Provider 共享同一个 Key。
 
 ## 步骤 2：配置 Provider
 
@@ -192,7 +220,14 @@ description: |
         "trapi/K2.6-code-preview": { "alias": "kimi" },
         "trapi/deepseek-v4-pro": { "alias": "dsv4p" },
         "trapi/deepseek-v4-flash": { "alias": "dsv4f" },
-        "trapi/gpt-5.5": { "alias": "gpt55" }
+        "trapi/gpt-5.5": { "alias": "gpt55" },
+        "linkapi/claude-opus-4-6": { "alias": "opus" },
+        "linkapi/[次]claude-opus-4-6": { "alias": "copus" },
+        "linkapi/claude-sonnet-4-6": { "alias": "sonnet" },
+        "linkapi/[次]claude-sonnet-4-6": { "alias": "csonnet" },
+        "linkapi/gemini-3.1-pro-preview": { "alias": "gemini" },
+        "linkapi/[次]gemini-3.1-pro-preview": { "alias": "cgemini" },
+        "linkapi/claude-opus-4.7": { "alias": "ops47" }
       }
     }
   }
@@ -215,7 +250,7 @@ sessions_spawn(
 )
 ```
 
-验证顺序：
+验证顺序（trapi）：
 1. `trapi/GLM-5-Turbo`（别名：glm5t）
 2. `trapi/GLM-5.1`（别名：glm51）
 3. `trapi/GLM-4.5-Air`（别名：glm45a）
@@ -225,6 +260,12 @@ sessions_spawn(
 7. `trapi/deepseek-v4-pro`（别名：dsv4p）
 8. `trapi/deepseek-v4-flash`（别名：dsv4f）
 9. `trapi/gpt-5.5`（别名：gpt55）
+
+验证顺序（linkapi）：
+10. `linkapi/claude-opus-4-6`（别名：opus）
+11. `linkapi/claude-sonnet-4-6`（别名：sonnet）
+12. `linkapi/gemini-3.1-pro-preview`（别名：gemini）
+13. `linkapi/claude-opus-4.7`（别名：ops47）
 
 ### 验证标准
 
@@ -247,6 +288,10 @@ sessions_spawn(
 | deepseek-v4-pro | dsv4p | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ |
+| claude-opus-4-6 | opus | ✅/❌ |
+| claude-sonnet-4-6 | sonnet | ✅/❌ |
+| gemini-3.1-pro-preview | gemini | ✅/❌ |
+| claude-opus-4.7 | ops47 | ✅/❌ |
 
 ## 步骤 6：使用指引
 
@@ -262,6 +307,10 @@ sessions_spawn(
 /dsv4p    → 切换到 DeepSeek V4 Pro
 /dsv4f    → 切换到 DeepSeek V4 Flash（快速）
 /gpt55    → 切换到 GPT-5.5
+/opus     → 切换到 Claude Opus 4.6（旗舰）
+/sonnet   → 切换到 Claude Sonnet 4.6（均衡）
+/gemini   → 切换到 Gemini 3.1 Pro
+/ops47    → 切换到 Claude Opus 4.7（最新旗舰）
 ```
 
 提示用户在对话中直接输入 `/alias` 即可快速切换模型。
@@ -292,6 +341,8 @@ sessions_spawn(
 
 ### 已有别名（不可重复）
 
+#### trapi 模型
+
 | 模型 | 别名 |
 |------|------|
 | GLM-4.5-Air | glm45a |
@@ -303,6 +354,18 @@ sessions_spawn(
 | deepseek-v4-pro | dsv4p |
 | deepseek-v4-flash | dsv4f |
 | gpt-5.5 | gpt55 |
+
+#### linkapi 模型
+
+| 模型 | 别名 |
+|------|------|
+| claude-opus-4-6 | opus |
+| [次]claude-opus-4-6 | copus |
+| claude-sonnet-4-6 | sonnet |
+| [次]claude-sonnet-4-6 | csonnet |
+| gemini-3.1-pro-preview | gemini |
+| [次]gemini-3.1-pro-preview | cgemini |
+| claude-opus-4.7 | ops47 |
 
 ### 操作流程
 
