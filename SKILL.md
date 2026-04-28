@@ -148,8 +148,8 @@ description: |
             "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 200000,
-            "maxTokens": 64000
+            "contextWindow": 1000000,
+            "maxTokens": 384000
           },
           {
             "id": "deepseek-v4-flash",
@@ -158,8 +158,8 @@ description: |
             "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 200000,
-            "maxTokens": 64000
+            "contextWindow": 1000000,
+            "maxTokens": 384000
           },
           {
             "id": "gpt-5.5",
