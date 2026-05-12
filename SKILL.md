@@ -1,7 +1,7 @@
 ---
 name: openclaw-trapi-config
 description: |
-  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / kimi-for-coding / deepseek-v4-pro / deepseek-v4-flash / mimo-v2.5-pro / mimo-v2.5 / claude-opus-4.7 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
+  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / kimi-for-coding / deepseek-v4-pro / deepseek-v4-flash / mimo-v2.5-pro / mimo-v2.5 / claude-opus-4.7 / GLM-5V-Turbo / PaddleOCR-VL-1.5 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
 ---
 
 # trapi Provider 配置指南
@@ -64,6 +64,8 @@ openclaw --version
 | mimo-v2.5-pro | mimo25p | ✅/❌ | ✅/❌ |
 | mimo-v2.5 | mimo25 | ✅/❌ | ✅/❌ |
 | claude-opus-4.7 | opus47 | ✅/❌ | ✅/❌ |
+| GLM-5V-Turbo | glm5v | ✅/❌ | ✅/❌ |
+| PaddleOCR-VL-1.5 | pocr | ✅/❌ | ✅/❌ |
 
 ### 检查结果处理
 
@@ -161,6 +163,26 @@ openclaw --version
             "maxTokens": 64000
           },
           {
+            "id": "GLM-5V-Turbo",
+            "name": "GLM-5V-Turbo (Transiglobal)",
+            "api": "anthropic-messages",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 200000,
+            "maxTokens": 64000
+          },
+          {
+            "id": "PaddleOCR-VL-1.5",
+            "name": "PaddleOCR-VL-1.5 (Transiglobal)",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 131072,
+            "maxTokens": 8192
+          },
+          {
             "id": "deepseek-v4-pro",
             "name": "DeepSeek V4 Pro (Transiglobal)",
             "api": "anthropic-messages",
@@ -249,6 +271,8 @@ openclaw --version
         "trapi/MiniMax-M2": { "alias": "mxm2" },
         "trapi/MiniMax-M2.7": { "alias": "mxm27" },
         "trapi/kimi-for-coding": { "alias": "kimi" },
+        "trapi/GLM-5V-Turbo": { "alias": "glm5v" },
+        "trapi/PaddleOCR-VL-1.5": { "alias": "pocr" },
         "trapi/deepseek-v4-pro": { "alias": "dsv4p" },
         "trapi/deepseek-v4-flash": { "alias": "dsv4f" },
         "trapi/gpt-5.5": { "alias": "gpt55" },
@@ -292,10 +316,12 @@ sessions_spawn(
 4. `trapi/MiniMax-M2`（别名：mxm2）
 5. `trapi/MiniMax-M2.7`（别名：mxm27）
 6. `trapi/kimi-for-coding`（别名：kimi）
-7. `trapi/deepseek-v4-pro`（别名：dsv4p）
-8. `trapi/deepseek-v4-flash`（别名：dsv4f）
-9. `trapi/gpt-5.5`（别名：gpt55）
-10. `trapi/claude-opus-4.7`（别名：opus47）
+7. `trapi/GLM-5V-Turbo`（别名：glm5v）
+8. `trapi/PaddleOCR-VL-1.5`（别名：pocr）
+9. `trapi/deepseek-v4-pro`（别名：dsv4p）
+10. `trapi/deepseek-v4-flash`（别名：dsv4f）
+11. `trapi/gpt-5.5`（别名：gpt55）
+12. `trapi/claude-opus-4.7`（别名：opus47）
 
 ### 验证标准
 
@@ -315,6 +341,8 @@ sessions_spawn(
 | MiniMax-M2 | mxm2 | ✅/❌ |
 | MiniMax-M2.7 | mxm27 | ✅/❌ |
 | kimi-for-coding | kimi | ✅/❌ |
+| GLM-5V-Turbo | glm5v | ✅/❌ |
+| PaddleOCR-VL-1.5 | pocr | ✅/❌ |
 | deepseek-v4-pro | dsv4p | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ |
@@ -383,6 +411,8 @@ sessions_spawn(
 | mimo-v2.5-pro | mimo25p |
 | mimo-v2.5 | mimo25 |
 | claude-opus-4.7 | opus47 |
+| GLM-5V-Turbo | glm5v |
+| PaddleOCR-VL-1.5 | pocr |
 
 ### 操作流程
 
