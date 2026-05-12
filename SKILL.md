@@ -15,7 +15,26 @@ description: |
 - **API 格式**：`anthropic-messages`
 - **运营方**：传米科技（Transiglobal）
 
-## 前置条件
+## 步骤 -1：检查 OpenClaw 版本
+
+**在执行任何配置操作前，必须先检查 OpenClaw 版本**，以确定正确的配置格式。
+
+### 检查方法
+
+```bash
+openclaw --version
+```
+
+### 版本分支
+
+| 版本 | 别名配置位置 | 说明 |
+|------|-------------|------|
+| **>= 2026.5.0** | `agents.defaults.models."provider/model"` → `{"alias": "xxx"}` | 新版格式（本技能默认采用） |
+| **< 2026.5.0** | 同样使用 `agents.defaults.models` 格式 | 向下兼容 |
+
+> **注意**：如果 OpenClaw < 2026.3.0，建议先升级 OpenClaw 再配置 trapi。
+
+### 前置条件
 
 1. 用户**必须提供自己的 API Key** —— 绝不使用默认或硬编码的密钥
 2. 如用户未提供 API Key，**立即停止**并要求提供；不可继续执行
@@ -210,6 +229,13 @@ description: |
 
 ## 步骤 3：配置模型别名
 
+### ⚠️ 关键：别名只能放在 agents.defaults.models 中
+
+**绝对不要**把别名放在以下位置（会导致配置无效）：
+- ❌ `agents.defaults.model.aliases` — 错误！
+- ❌ `agents.modelAliases` — 错误！
+- ✅ `agents.defaults.models."provider/model"` — **正确！**
+
 使用 `gateway config.patch` 添加别名到 `agents.defaults.models`：
 
 ```json
@@ -235,9 +261,17 @@ description: |
 }
 ```
 
+### 别名格式说明
+
+- key 为完整模型引用 `<provider>/<model>`（如 `trapi/GLM-5-Turbo`）
+- value 为 `{ "alias": "短别名" }`
+- **注意**：设置 `agents.defaults.models` 后它会成为 allowlist，只有列表中的模型可用
+
 ## 步骤 4：应用配置
 
 使用 `gateway config.patch` 并附带 `note` 参数说明变更内容。Gateway 会自动热加载或重启。
+
+**重要**：配置完成后用 `openclaw gateway status` 确认 Gateway 正常运行，无 `Invalid input` 错误。
 
 ## 步骤 5：逐个验证模型
 
@@ -357,7 +391,7 @@ sessions_spawn(
 3. 按上述规则生成别名
 4. 向用户展示拟配置方案并确认
 5. `gateway config.patch` 添加模型到 `models.providers.trapi.models`
-6. `gateway config.patch` 添加别名到 `agents.defaults.models`
+6. `gateway config.patch` 添加别名到 `agents.defaults.models`（格式：`{"trapi/<模型ID>":{"alias":"<别名>"}}`）
 7. subagent 验证：`sessions_spawn(model: "trapi/<模型ID>", task: "Reply with exactly: OK", runtime: "subagent")`
 8. 报告结果
 
@@ -385,5 +419,6 @@ sessions_spawn(
 - **401/403**：API Key 无效或过期 — 请用户核实
 - **连接超时**：检查到 `lapi.transiglobal.com` 的网络连通性
 - **Model not found**：模型 ID 可能已变更 — 联系传米科技确认
+- **`Invalid input` 错误**：别名放错了位置！确认别名只在 `agents.defaults.models."provider/model"` 中，没有放到 `agents.defaults.model.aliases` 或 `agents.modelAliases`
 - **config.patch 冲突**：trapi provider 已存在时 patch 会合并；别名冲突时警告用户
 - **别名冲突**：重新生成带数字后缀的别名并与用户确认
