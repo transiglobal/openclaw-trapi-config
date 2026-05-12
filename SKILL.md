@@ -1,7 +1,7 @@
 ---
 name: openclaw-trapi-config
 description: |
-  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / K2.6-code-preview / deepseek-v4-pro / deepseek-v4-flash / mimo-v2.5-pro / mimo-v2.5 / claude-opus-4.7 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
+  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / kimi-for-coding / deepseek-v4-pro / deepseek-v4-flash / mimo-v2.5-pro / mimo-v2.5 / claude-opus-4.7 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
 ---
 
 # trapi Provider 配置指南
@@ -57,7 +57,7 @@ openclaw --version
 | GLM-4.5-Air | glm45a | ✅/❌ | ✅/❌ |
 | MiniMax-M2 | mxm2 | ✅/❌ | ✅/❌ |
 | MiniMax-M2.7 | mxm27 | ✅/❌ | ✅/❌ |
-| K2.6-code-preview | kimi | ✅/❌ | ✅/❌ |
+| kimi-for-coding | kimi | ✅/❌ | ✅/❌ |
 | deepseek-v4-pro | dsv4p | ✅/❌ | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ | ✅/❌ |
@@ -151,8 +151,8 @@ openclaw --version
             "maxTokens": 64000
           },
           {
-            "id": "K2.6-code-preview",
-            "name": "K2.6 Code Preview (Transiglobal)",
+            "id": "kimi-for-coding",
+            "name": "kimi-for-coding (Transiglobal)",
             "api": "anthropic-messages",
             "reasoning": false,
             "input": ["text", "image"],
@@ -248,7 +248,7 @@ openclaw --version
         "trapi/GLM-4.5-Air": { "alias": "glm45a" },
         "trapi/MiniMax-M2": { "alias": "mxm2" },
         "trapi/MiniMax-M2.7": { "alias": "mxm27" },
-        "trapi/K2.6-code-preview": { "alias": "kimi" },
+        "trapi/kimi-for-coding": { "alias": "kimi" },
         "trapi/deepseek-v4-pro": { "alias": "dsv4p" },
         "trapi/deepseek-v4-flash": { "alias": "dsv4f" },
         "trapi/gpt-5.5": { "alias": "gpt55" },
@@ -291,7 +291,7 @@ sessions_spawn(
 3. `trapi/GLM-4.5-Air`（别名：glm45a）
 4. `trapi/MiniMax-M2`（别名：mxm2）
 5. `trapi/MiniMax-M2.7`（别名：mxm27）
-6. `trapi/K2.6-code-preview`（别名：kimi）
+6. `trapi/kimi-for-coding`（别名：kimi）
 7. `trapi/deepseek-v4-pro`（别名：dsv4p）
 8. `trapi/deepseek-v4-flash`（别名：dsv4f）
 9. `trapi/gpt-5.5`（别名：gpt55）
@@ -314,7 +314,7 @@ sessions_spawn(
 | GLM-4.5-Air | glm45a | ✅/❌ |
 | MiniMax-M2 | mxm2 | ✅/❌ |
 | MiniMax-M2.7 | mxm27 | ✅/❌ |
-| K2.6-code-preview | kimi | ✅/❌ |
+| kimi-for-coding | kimi | ✅/❌ |
 | deepseek-v4-pro | dsv4p | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ |
@@ -332,7 +332,7 @@ sessions_spawn(
 /glm51    → 切换到 GLM-5.1（旗舰）
 /mxm2     → 切换到 MiniMax-M2
 /mxm27    → 切换到 MiniMax-M2.7
-/kimi     → 切换到 K2.6-code-preview（支持图片）
+/kimi     → 切换到 kimi-for-coding（支持图片）
 /dsv4p    → 切换到 DeepSeek V4 Pro
 /dsv4f    → 切换到 DeepSeek V4 Flash（快速）
 /gpt55    → 切换到 GPT-5.5
@@ -361,7 +361,7 @@ sessions_spawn(
 生成 **≤ 5 字符**的别名，按以下优先级：
 
 1. **已知模式** — 从常见缩写推导：
-   - `GLM-` → `glm`，`MiniMax-` → `mxm`，`K2.6` → `kimi`，`mimo` → `mimo`
+   - `GLM-` → `glm`，`MiniMax-` → `mxm`，`kimi-for-coding` → `kimi`，`mimo` → `mimo`
 2. **去除分隔符** — 去掉 `-`、`.`、空格：`GLM-5-Turbo` → `GLM5Turbo`
 3. **取前 5 字符**：`GLM5T`
 4. **转小写**：`glm5t`
@@ -376,7 +376,7 @@ sessions_spawn(
 | GLM-5.1 | glm51 |
 | MiniMax-M2 | mxm2 |
 | MiniMax-M2.7 | mxm27 |
-| K2.6-code-preview | kimi |
+| kimi-for-coding | kimi |
 | deepseek-v4-pro | dsv4p |
 | deepseek-v4-flash | dsv4f |
 | gpt-5.5 | gpt55 |
