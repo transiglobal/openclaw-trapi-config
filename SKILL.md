@@ -217,7 +217,7 @@ openclaw --version
             "name": "MiMo 2.5 Pro (Transiglobal)",
             "api": "anthropic-messages",
             "reasoning": true,
-            "input": ["text"],
+            "input": ["text", "image"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
             "maxTokens": 64000
@@ -413,6 +413,15 @@ sessions_spawn(
 | claude-opus-4.7 | opus47 |
 | GLM-5V-Turbo | glm5v |
 | PaddleOCR-VL-1.5 | pocr |
+
+### 支持图片输入的模型
+
+以下模型支持图片输入（`input` 包含 `"image"`）：
+- **kimi-for-coding**（别名：kimi）
+- **mimo-v2.5-pro**（别名：mimo25p）
+- **mimo-v2.5**（别名：mimo25）
+- **GLM-5V-Turbo**（别名：glm5v）
+- **PaddleOCR-VL-1.5**（别名：pocr）
 
 ### 操作流程
 
