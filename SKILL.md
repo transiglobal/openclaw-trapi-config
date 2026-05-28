@@ -1,7 +1,7 @@
 ---
 name: openclaw-trapi-config
 description: |
-  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / kimi-for-coding / deepseek-v4-pro / deepseek-v4-flash / mimo-v2.5-pro / mimo-v2.5 / claude-opus-4.7 / GLM-5V-Turbo / PaddleOCR-VL-1.5 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
+  配置传米科技 trapi 自定义 Provider 及模型。引导用户将 trapi Provider（lapi.transiglobal.com）添加到 OpenClaw，支持首次安装和动态添加新模型。触发词："配置 trapi"、"安装 trapi"、"添加 trapi provider"、"trapi 配置"、"Transiglobal API"、"配置传米 API"、"trapi 添加模型"、"trapi add model"，或涉及 GLM-5-Turbo / GLM-5.1 / MiniMax-M2.7 / kimi-for-coding / deepseek-v4-pro / deepseek-v4-flash / mimo-v2.5-pro / mimo-v2.5 / claude-opus-4.7 / GLM-5V-Turbo / PaddleOCR-VL-1.5 / qwen3.7-max / qwen3.6-plus 的 trapi 配置。也可在 trapi 已存在时用于添加新模型。
 ---
 
 # trapi Provider 配置指南
@@ -66,6 +66,8 @@ openclaw --version
 | claude-opus-4.7 | opus47 | ✅/❌ | ✅/❌ |
 | GLM-5V-Turbo | glm5v | ✅/❌ | ✅/❌ |
 | PaddleOCR-VL-1.5 | pocr | ✅/❌ | ✅/❌ |
+| qwen3.7-max | qwn37 | ✅/❌ | ✅/❌ |
+| qwen3.6-plus | qwn36 | ✅/❌ | ✅/❌ |
 
 ### 检查结果处理
 
@@ -241,6 +243,26 @@ openclaw --version
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 300000,
             "maxTokens": 64000
+          },
+          {
+            "id": "qwen3.7-max",
+            "name": "Qwen 3.7 Max (Transiglobal)",
+            "api": "openai-responses",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 1000000,
+            "maxTokens": 100000
+          },
+          {
+            "id": "qwen3.6-plus",
+            "name": "Qwen 3.6 Plus (Transiglobal)",
+            "api": "openai-responses",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 1000000,
+            "maxTokens": 100000
           }
         ]
       }
@@ -278,7 +300,9 @@ openclaw --version
         "trapi/gpt-5.5": { "alias": "gpt55" },
         "trapi/mimo-v2.5-pro": { "alias": "mimo25p" },
         "trapi/mimo-v2.5": { "alias": "mimo25" },
-        "trapi/claude-opus-4.7": { "alias": "opus47" }
+        "trapi/claude-opus-4.7": { "alias": "opus47" },
+        "trapi/qwen3.7-max": { "alias": "qwn37" },
+        "trapi/qwen3.6-plus": { "alias": "qwn36" }
       }
     }
   }
@@ -322,6 +346,8 @@ sessions_spawn(
 10. `trapi/deepseek-v4-flash`（别名：dsv4f）
 11. `trapi/gpt-5.5`（别名：gpt55）
 12. `trapi/claude-opus-4.7`（别名：opus47）
+13. `trapi/qwen3.7-max`（别名：qwn37）
+14. `trapi/qwen3.6-plus`（别名：qwn36）
 
 ### 验证标准
 
@@ -346,9 +372,11 @@ sessions_spawn(
 | deepseek-v4-pro | dsv4p | ✅/❌ |
 | deepseek-v4-flash | dsv4f | ✅/❌ |
 | gpt-5.5 | gpt55 | ✅/❌ |
-| mimo-v2.5-pro | mimo25p |
-| mimo-v2.5 | mimo25 |
+| mimo-v2.5-pro | mimo25p | ✅/❌ |
+| mimo-v2.5 | mimo25 | ✅/❌ |
 | claude-opus-4.7 | opus47 | ✅/❌ |
+| qwen3.7-max | qwn37 | ✅/❌ |
+| qwen3.6-plus | qwn36 | ✅/❌ |
 
 ## 步骤 6：使用指引
 
@@ -367,6 +395,8 @@ sessions_spawn(
 /mimo25p   → 切换到 MiMo 2.5 Pro
 /mimo25    → 切换到 MiMo 2.5（全模态）
 /opus47    → 切换到 Claude Opus 4.7（最新旗舰）
+/qwn37     → 切换到 Qwen 3.7 Max（1M上下文，纯文本）
+/qwn36     → 切换到 Qwen 3.6 Plus（1M上下文，支持图片）
 ```
 
 提示用户在对话中直接输入 `/alias` 即可快速切换模型。
@@ -413,6 +443,8 @@ sessions_spawn(
 | claude-opus-4.7 | opus47 |
 | GLM-5V-Turbo | glm5v |
 | PaddleOCR-VL-1.5 | pocr |
+| qwen3.7-max | qwn37 |
+| qwen3.6-plus | qwn36 |
 
 ### 支持图片输入的模型
 
@@ -422,6 +454,7 @@ sessions_spawn(
 - **mimo-v2.5**（别名：mimo25）
 - **GLM-5V-Turbo**（别名：glm5v）
 - **PaddleOCR-VL-1.5**（别名：pocr）
+- **qwen3.6-plus**（别名：qwn36）
 
 ### 操作流程
 
