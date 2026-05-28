@@ -151,8 +151,8 @@ openclaw --version
             "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 200000,
-            "maxTokens": 64000
+            "contextWindow": 150000,
+            "maxTokens": 16384
           },
           {
             "id": "kimi-for-coding",
@@ -161,8 +161,8 @@ openclaw --version
             "reasoning": false,
             "input": ["text", "image"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 200000,
-            "maxTokens": 64000
+            "contextWindow": 262144,
+            "maxTokens": 32768
           },
           {
             "id": "GLM-5V-Turbo",
@@ -207,19 +207,19 @@ openclaw --version
           {
             "id": "gpt-5.5",
             "name": "GPT-5.5 (Transiglobal)",
-            "api": "anthropic-messages",
+            "api": "openai-responses",
             "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
-            "maxTokens": 64000
+            "maxTokens": 65536
           },
           {
             "id": "mimo-v2.5-pro",
             "name": "MiMo 2.5 Pro (Transiglobal)",
             "api": "anthropic-messages",
             "reasoning": true,
-            "input": ["text", "image"],
+            "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 200000,
             "maxTokens": 64000
@@ -389,11 +389,13 @@ sessions_spawn(
 /mxm2     → 切换到 MiniMax-M2
 /mxm27    → 切换到 MiniMax-M2.7
 /kimi     → 切换到 kimi-for-coding（支持图片）
-/dsv4p    → 切换到 DeepSeek V4 Pro
-/dsv4f    → 切换到 DeepSeek V4 Flash（快速）
+/dsv4p    → 切换到 DeepSeek V4 Pro（1M上下文）
+/dsv4f    → 切换到 DeepSeek V4 Flash（1M上下文，快速）
 /gpt55    → 切换到 GPT-5.5
 /mimo25p   → 切换到 MiMo 2.5 Pro
 /mimo25    → 切换到 MiMo 2.5（全模态）
+/glm5v    → 切换到 GLM-5V-Turbo（支持图片）
+/pocr     → 切换到 PaddleOCR-VL-1.5（OCR识别）
 /opus47    → 切换到 Claude Opus 4.7（最新旗舰）
 /qwn37     → 切换到 Qwen 3.7 Max（1M上下文，纯文本）
 /qwn36     → 切换到 Qwen 3.6 Plus（1M上下文，支持图片）
@@ -450,8 +452,6 @@ sessions_spawn(
 
 以下模型支持图片输入（`input` 包含 `"image"`）：
 - **kimi-for-coding**（别名：kimi）
-- **mimo-v2.5-pro**（别名：mimo25p）
-- **mimo-v2.5**（别名：mimo25）
 - **GLM-5V-Turbo**（别名：glm5v）
 - **PaddleOCR-VL-1.5**（别名：pocr）
 - **qwen3.6-plus**（别名：qwn36）

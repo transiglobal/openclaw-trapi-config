@@ -23,11 +23,15 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 | GLM-5.1 | `glm51` | 文本 | 200K | 64K |
 | GLM-4.5-Air | `glm45a` | 文本 | 200K | 64K |
 | MiniMax-M2 | `mxm2` | 文本 | 200K | 64K |
-| MiniMax-M2.7 | `mxm27` | 文本 | 200K | 64K |
-| K2.6-code-preview | `kimi` | 文本 + 图片 | 200K | 64K |
-| deepseek-v4-pro | `dsv4p` | 文本 | 200K | 64K |
-| deepseek-v4-flash | `dsv4f` | 文本 | 200K | 64K |
-| gpt-5.5 | `gpt55` | 文本 | 200K | 64K |
+| MiniMax-M2.7 | `mxm27` | 文本 | 150K | 16K |
+| kimi-for-coding | `kimi` | 文本 + 图片 | 262K | 32K |
+| deepseek-v4-pro | `dsv4p` | 文本 | 1M | 384K |
+| deepseek-v4-flash | `dsv4f` | 文本 | 1M | 384K |
+| gpt-5.5 | `gpt55` | 文本 | 200K | 65K |
+| GLM-5V-Turbo | `glm5v` | 文本 + 图片 | 200K | 64K |
+| PaddleOCR-VL-1.5 | `pocr` | 文本 + 图片 | 131K | 8K |
+| mimo-v2.5-pro | `mimo25p` | 文本 | 200K | 64K |
+| mimo-v2.5 | `mimo25` | 文本 + 图片 + 视频 + 音频 | 200K | 64K |
 | claude-opus-4.7 | `opus47` | 文本 | 300K | 64K |
 | qwen3.7-max | `qwn37` | 文本 | 1M | 100K |
 | qwen3.6-plus | `qwn36` | 文本 + 图片 | 1M | 100K |
@@ -40,10 +44,14 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 /glm51    → GLM-5.1（旗舰）
 /mxm2     → MiniMax-M2
 /mxm27    → MiniMax-M2.7
-/kimi     → K2.6-code-preview（支持图片）
-/dsv4p    → DeepSeek V4 Pro
-/dsv4f    → DeepSeek V4 Flash（快速）
+/kimi     → kimi-for-coding（支持图片）
+/dsv4p    → DeepSeek V4 Pro（1M上下文）
+/dsv4f    → DeepSeek V4 Flash（1M上下文，快速）
 /gpt55    → GPT-5.5
+/glm5v    → GLM-5V-Turbo（支持图片）
+/pocr     → PaddleOCR-VL-1.5（OCR识别）
+/mimo25p  → MiMo 2.5 Pro
+/mimo25   → MiMo 2.5（全模态：文本+图片+视频+音频）
 /opus47    → Claude Opus 4.7（最新旗舰）
 /qwn37     → Qwen 3.7 Max（1M上下文，纯文本）
 /qwn36     → Qwen 3.6 Plus（1M上下文，支持图片）
