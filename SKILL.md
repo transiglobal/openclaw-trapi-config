@@ -247,7 +247,7 @@ openclaw --version
           {
             "id": "qwen3.7-max",
             "name": "Qwen 3.7 Max (Transiglobal)",
-            "api": "openai-responses",
+            "api": "anthropic-messages",
             "reasoning": false,
             "input": ["text"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
@@ -257,7 +257,7 @@ openclaw --version
           {
             "id": "qwen3.6-plus",
             "name": "Qwen 3.6 Plus (Transiglobal)",
-            "api": "openai-responses",
+            "api": "anthropic-messages",
             "reasoning": false,
             "input": ["text", "image"],
             "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
