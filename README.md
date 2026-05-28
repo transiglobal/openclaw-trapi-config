@@ -23,7 +23,7 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 | GLM-5.1 | `glm51` | 文本 | 200K | 64K |
 | GLM-4.5-Air | `glm45a` | 文本 | 200K | 64K |
 | MiniMax-M2 | `mxm2` | 文本 | 200K | 64K |
-| MiniMax-M2.7 | `mxm27` | 文本 | 150K | 16K |
+| MiniMax-M2.7 | `mxm27` | 文本 | 200K | 64K |
 | kimi-for-coding | `kimi` | 文本 + 图片 | 262K | 32K |
 | deepseek-v4-pro | `dsv4p` | 文本 | 1M | 384K |
 | deepseek-v4-flash | `dsv4f` | 文本 | 1M | 384K |
