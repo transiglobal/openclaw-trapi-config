@@ -29,6 +29,8 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 | deepseek-v4-flash | `dsv4f` | 文本 | 200K | 64K |
 | gpt-5.5 | `gpt55` | 文本 | 200K | 64K |
 | claude-opus-4.7 | `opus47` | 文本 | 300K | 64K |
+| qwen3.7-max | `qwn37` | 文本 | 1M | 100K |
+| qwen3.6-plus | `qwn36` | 文本 + 图片 | 1M | 100K |
 
 ## 快捷切换模型
 
@@ -43,6 +45,8 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 /dsv4f    → DeepSeek V4 Flash（快速）
 /gpt55    → GPT-5.5
 /opus47    → Claude Opus 4.7（最新旗舰）
+/qwn37     → Qwen 3.7 Max（1M上下文，纯文本）
+/qwn36     → Qwen 3.6 Plus（1M上下文，支持图片）
 ```
 
 ## 使用方式
