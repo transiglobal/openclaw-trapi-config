@@ -84,6 +84,19 @@ trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统
 3. 默认 200K 上下文 / 64K 最大输出，支持自定义
 4. 写入配置并验证
 
+## 图像模型配置（imageModel）
+
+配置 trapi 后，建议同步设置 OpenClaw 的 `imageModel`，使 Agent 具备图像识别能力：
+
+| 角色 | 模型 | 说明 |
+|------|------|------|
+| **Primary** | `trapi/kimi-for-coding` | 默认图像识别模型 |
+| Fallback 1 | `trapi/qwen3.6-plus` | 1M 上下文，支持图像 |
+| Fallback 2 | `trapi/mimo-v2.5` | 全模态（文本+图片+视频+音频） |
+| Fallback 3 | `trapi/GLM-5V-Turbo` | 智谱视觉模型 |
+| Fallback 4 | `zai/glm-4.6v` | 智谱官方 API 备选 |
+| Fallback 5 | `xiaomi/mimo-v2-omni` | 小米多模态备选 |
+
 ## 安全说明
 
 - **API Key 必须由用户提供**，技能中不存储任何默认密钥

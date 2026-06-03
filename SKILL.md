@@ -315,13 +315,51 @@ openclaw --version
 - value 为 `{ "alias": "短别名" }`
 - **注意**：设置 `agents.defaults.models` 后它会成为 allowlist，只有列表中的模型可用
 
-## 步骤 4：应用配置
+## 步骤 4：配置图像模型（imageModel）
+
+trapi 提供了多个支持图像输入的模型。OpenClaw 的 `agents.defaults.imageModel` 用于指定当主模型不支持图像时的图像识别模型。
+
+使用 `gateway config.patch`（如路径受保护则直接编辑 `openclaw.json`）配置：
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "imageModel": {
+        "primary": "trapi/kimi-for-coding",
+        "fallbacks": [
+          "trapi/qwen3.6-plus",
+          "trapi/mimo-v2.5",
+          "trapi/GLM-5V-Turbo",
+          "zai/glm-4.6v",
+          "xiaomi/mimo-v2-omni"
+        ]
+      }
+    }
+  }
+}
+```
+
+### imageModel 配置说明
+
+| 项目 | 模型 | 说明 |
+|------|------|------|
+| **Primary** | `trapi/kimi-for-coding` | 默认图像识别模型，性价比最优 |
+| Fallback 1 | `trapi/qwen3.6-plus` | 1M 上下文，支持图像 |
+| Fallback 2 | `trapi/mimo-v2.5` | 全模态（文本+图片+视频+音频） |
+| Fallback 3 | `trapi/GLM-5V-Turbo` | 智谱视觉模型 |
+| Fallback 4 | `zai/glm-4.6v` | 智谱官方 API 备选 |
+| Fallback 5 | `xiaomi/mimo-v2-omni` | 小米多模态备选 |
+
+> **注意**：`imageModel` 是受保护路径，`config.patch` 可能无法修改。如遇此情况，需直接编辑 `openclaw.json` 文件中的 `agents.defaults.imageModel` 字段。
+
+## 步骤 5：应用配置
 
 使用 `gateway config.patch` 并附带 `note` 参数说明变更内容。Gateway 会自动热加载或重启。
 
 **重要**：配置完成后用 `openclaw gateway status` 确认 Gateway 正常运行，无 `Invalid input` 错误。
 
-## 步骤 5：逐个验证模型
+## 步骤 6：逐个验证模型
 
 配置生效后，使用 subagent 逐个验证模型：
 
@@ -378,7 +416,7 @@ sessions_spawn(
 | qwen3.7-max | qwn37 | ✅/❌ |
 | qwen3.6-plus | qwn36 | ✅/❌ |
 
-## 步骤 6：使用指引
+## 步骤 7：使用指引
 
 配置完成并通过验证后，向用户展示快捷切换模型的使用方式：
 
