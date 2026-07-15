@@ -1,107 +1,99 @@
 # openclaw-trapi-config
 
-OpenClaw 技能（Skill）：配置传米科技 trapi 自定义 Provider 及模型。
-
-## 简介
-
-trapi 是传米科技（Transiglobal）提供的大模型中转 API 服务，统一使用 Anthropic Messages 格式。本技能帮助用户在任意 OpenClaw 实例上一键配置 trapi Provider，包含预置模型和别名，并支持动态添加新模型。
+用于配置和维护传米科技 trapi 自定义 Provider 的 OpenClaw Skill，支持首次安装、模型增量更新、别名、图像模型、静态验证和故障排查。
 
 ## 服务信息
 
 | 项目 | 值 |
-|------|-----|
-| Provider 名称 | `trapi` |
-| API 地址 | `https://lapi.transiglobal.com` |
-| API 格式 | `anthropic-messages` |
-| 运营方 | 传米科技 |
+|---|---|
+| Provider ID | `trapi` |
+| Base URL | `https://lapi.transiglobal.com` |
+| API Key 环境变量 | `TRAPI_API_KEY` |
+| 默认 API 适配器 | `anthropic-messages` |
+| GPT 模型适配器 | `openai-responses` |
+
+trapi 支持模型级 API 适配器，不要求所有模型统一使用 Anthropic Messages。
 
 ## 预置模型
 
-| 模型 ID | 别名 | 输入类型 | 上下文窗口 | 最大输出 |
-|---------|------|---------|-----------|---------|
-| GLM-5-Turbo | `glm5t` | 文本 | 200K | 64K |
-| GLM-5.1 | `glm51` | 文本 | 200K | 64K |
-| GLM-4.5-Air | `glm45a` | 文本 | 200K | 64K |
-| MiniMax-M2 | `mxm2` | 文本 | 200K | 64K |
-| MiniMax-M2.7 | `mxm27` | 文本 | 200K | 64K |
-| kimi-for-coding | `kimi` | 文本 + 图片 | 262K | 32K |
-| deepseek-v4-pro | `dsv4p` | 文本 | 1M | 384K |
-| deepseek-v4-flash | `dsv4f` | 文本 | 1M | 384K |
-| gpt-5.5 | `gpt55` | 文本 | 200K | 65K |
-| GLM-5V-Turbo | `glm5v` | 文本 + 图片 | 200K | 64K |
-| PaddleOCR-VL-1.5 | `pocr` | 文本 + 图片 | 131K | 8K |
-| mimo-v2.5-pro | `mimo25p` | 文本 | 200K | 64K |
-| mimo-v2.5 | `mimo25` | 文本 + 图片 + 视频 + 音频 | 200K | 64K |
-| claude-opus-4.7 | `opus47` | 文本 | 300K | 64K |
-| qwen3.7-max | `qwn37` | 文本 | 1M | 100K |
-| qwen3.6-plus | `qwn36` | 文本 + 图片 | 1M | 100K |
+| 模型 ID | 别名 | API | 输入 | 上下文 | 最大输出 |
+|---|---|---|---|---:|---:|
+| GLM-5-Turbo | `glm5t` | anthropic-messages | 文本 | 200K | 64K |
+| GLM-5.2 | `glm52` | anthropic-messages | 文本 | 200K | 64K |
+| GLM-4.5-Air | `glm45a` | anthropic-messages | 文本 | 200K | 64K |
+| MiniMax-M2 | `mxm2` | anthropic-messages | 文本 | 200K | 64K |
+| MiniMax-M2.7 | `mxm27` | anthropic-messages | 文本 | 200K | 64K |
+| MiniMax-M3 | `mxm3` | anthropic-messages | 文本、图片 | 1M | 131K |
+| kimi-for-coding | `kimi` | anthropic-messages | 文本、图片 | 262K | 32K |
+| GLM-5V-Turbo | `glm5v` | anthropic-messages | 文本、图片 | 200K | 64K |
+| PaddleOCR-VL-1.5 | `pocr` | anthropic-messages | 文本、图片 | 131K | 8K |
+| deepseek-v4-pro | `dsv4p` | anthropic-messages | 文本 | 1M | 384K |
+| deepseek-v4-flash | `dsv4f` | anthropic-messages | 文本 | 1M | 384K |
+| gpt-5.5 | `gpt55` | openai-responses | 文本 | 200K | 65K |
+| gpt-5.6-sol | `g56s` | openai-responses | 文本、图片 | 372K | 128K |
+| gpt-5.6-terra | `g56t` | openai-responses | 文本、图片 | 372K | 128K |
+| gpt-5.6-luna | `g56l` | openai-responses | 文本、图片 | 372K | 128K |
+| mimo-v2.5-pro | `mimo25p` | anthropic-messages | 文本 | 200K | 64K |
+| mimo-v2.5 | `mimo25` | anthropic-messages | 文本、图片、视频、音频 | 200K | 64K |
+| claude-opus-4.7 | `opus47` | anthropic-messages | 文本 | 300K | 64K |
+| qwen3.7-max | `qwn37` | anthropic-messages | 文本 | 1M | 100K |
+| qwen3.6-plus | `qwn36` | anthropic-messages | 文本、图片 | 1M | 100K |
 
-## 快捷切换模型
-
-```
-/glm45a   → GLM-4.5-Air（轻量）
-/glm5t    → GLM-5-Turbo（高性价比）
-/glm51    → GLM-5.1（旗舰）
-/mxm2     → MiniMax-M2
-/mxm27    → MiniMax-M2.7
-/kimi     → kimi-for-coding（支持图片）
-/dsv4p    → DeepSeek V4 Pro（1M上下文）
-/dsv4f    → DeepSeek V4 Flash（1M上下文，快速）
-/gpt55    → GPT-5.5
-/glm5v    → GLM-5V-Turbo（支持图片）
-/pocr     → PaddleOCR-VL-1.5（OCR识别）
-/mimo25p  → MiMo 2.5 Pro
-/mimo25   → MiMo 2.5（全模态：文本+图片+视频+音频）
-/opus47    → Claude Opus 4.7（最新旗舰）
-/qwn37     → Qwen 3.7 Max（1M上下文，纯文本）
-/qwn36     → Qwen 3.6 Plus（1M上下文，支持图片）
-```
+模型目录不设置 `reasoning` 字段，费用元数据暂时全部保持为 0。
 
 ## 使用方式
 
-### 首次配置 trapi
-
 在 OpenClaw 对话中说：
 
-> "配置 trapi"
+> 配置 trapi
 
-技能会引导你完成：
-1. **提供 API Key**（必须提供，不会使用任何默认 key）
-2. **自动写入 Provider 配置**到 `openclaw.json`
-3. **注册模型别名**（glm5t / glm51 / mxm27 / kimi / dsv4p / dsv4f / gpt55 / opus47 等）
-4. **逐个模型验证**，确保连通性
-5. **检查已有配置**，只补齐缺失部分，不重复配置
+Skill 会执行以下流程：
 
-### 添加新模型
+1. 检查 OpenClaw 版本、Schema 和现有 trapi 配置。
+2. 对照预置目录生成新增、更新、保留和额外模型差异。
+3. 保留已有认证；首次配置时优先使用 `TRAPI_API_KEY` SecretRef。
+4. 展示变更方案，获得确认后使用 CLI `--merge` 安全增量写入。
+5. 注册缺失别名，并按需配置 imageModel。
+6. 执行配置、模型、别名和 Gateway 静态验证。
+7. 经用户确认后，只对本次变更模型执行最小实时调用。
 
-当 trapi 已配置好后，说：
+不会使用不完整的 `gateway config.patch` 覆盖模型数组，也不会自动删除目录外模型、覆盖默认模型或重写已有 imageModel。
 
-> "给 trapi 添加 Qwen-3-Plus"
+## 切换模型
 
-技能会：
-1. 询问模型全称
-2. 自动生成 ≤5 字符的别名（避免与已有别名冲突）
-3. 默认 200K 上下文 / 64K 最大输出，支持自定义
-4. 写入配置并验证
+在对话中使用 `/model <alias>`：
 
-## 图像模型配置（imageModel）
+```text
+/model glm5t
+/model mxm3
+/model g56s
+/model g56t
+/model g56l
+```
 
-配置 trapi 后，建议同步设置 OpenClaw 的 `imageModel`，使 Agent 具备图像识别能力：
+不能直接使用 `/<alias>` 切换模型。
 
-| 角色 | 模型 | 说明 |
-|------|------|------|
-| **Primary** | `trapi/kimi-for-coding` | 默认图像识别模型 |
-| Fallback 1 | `trapi/qwen3.6-plus` | 1M 上下文，支持图像 |
-| Fallback 2 | `trapi/mimo-v2.5` | 全模态（文本+图片+视频+音频） |
-| Fallback 3 | `trapi/GLM-5V-Turbo` | 智谱视觉模型 |
-| Fallback 4 | `zai/glm-4.6v` | 智谱官方 API 备选 |
-| Fallback 5 | `xiaomi/mimo-v2-omni` | 小米多模态备选 |
+## 图像模型
+
+建议链仅引用已配置且认证可用的 trapi 模型：
+
+1. `trapi/kimi-for-coding`
+2. `trapi/qwen3.6-plus`
+3. `trapi/mimo-v2.5`
+4. `trapi/GLM-5V-Turbo`
+5. `trapi/MiniMax-M3`
+
+Skill 默认保留现有 imageModel；只有用户明确要求，或当前未配置且用户接受建议时才写入。
 
 ## 安全说明
 
-- **API Key 必须由用户提供**，技能中不存储任何默认密钥
-- 未提供 Key 时配置流程会立即终止
-- 所有配置通过 OpenClaw 标准的 `gateway config.patch` 写入
+- 不在聊天、命令参数、日志或文档中回显 API Key。
+- 优先使用环境变量 SecretRef，不把真实 Key 明文写入 `openclaw.json`。
+- 所有持久配置变更先展示差异并等待确认。
+- 不使用 `--replace` 绕过 OpenClaw 的配置防覆盖保护。
+- 不默认调用付费模型；实时验证前说明范围并征得确认。
+
+详细参数见 [`references/custom-provider-config.md`](references/custom-provider-config.md)。
 
 ## 许可证
 
