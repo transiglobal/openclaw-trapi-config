@@ -1,6 +1,6 @@
 ---
 name: "openclaw-trapi-config"
-description: "配置传米 trapi Provider、模型、别名与图像模型；用于安装、增量更新、验证和排障，包括 MiniMax-M3 与 GPT-5.6。"
+description: "配置传米 trapi Provider、模型、别名与图像模型；用于安装、增量更新、验证和排障，包括 MiniMax-M3、GPT-5.6 与 openai/gpt-6-astra。"
 ---
 
 # trapi 配置
