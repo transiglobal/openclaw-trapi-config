@@ -107,7 +107,7 @@ trapi 使用混合模型适配器。Provider 级 `api` 只是默认值；模型�
 | qwen3.6-plus | qwn36 |
 | openai/gpt-6-astra | gastra |
 
-补充说明：`openai/gpt-6-astra` 属于 openai 预设 Provider（非 trapi），2026-09-10 已用 `--merge` 方式写入 `models.providers.openai.models`，OpenClaw 目录自带元数据（contextWindow 872000），注册别名 `gastra`。
+补充说明：`openai/gpt-6-astra` 属于 openai 预设 Provider（非 trapi），2026-09-10 已用 `--merge` 方式写入 `models.providers.openai.models`，参数与 gpt-5.6-sol 对齐（contextWindow 372000，maxTokens 128000，input: text, image），注册别名 `gastra`。
 
 别名没有强制五字符限制。优先简短、清晰、稳定，不自动改动用户已有别名。
 
