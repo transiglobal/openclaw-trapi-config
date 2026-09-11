@@ -44,7 +44,7 @@ trapi 使用混合模型适配器。Provider 级 `api` 只是默认值；模型�
 | PaddleOCR-VL-1.5 | anthropic-messages | text, image | 131072 | 8192 |
 | deepseek-v4-pro | anthropic-messages | text | 1000000 | 384000 |
 | deepseek-v4-flash | anthropic-messages | text | 1000000 | 384000 |
-| deepseek-flash | anthropic-messages | text | 1000000 | 384000 |
+| deepseek-flash | anthropic-messages | text, image | 1000000 | 384000 |
 | gpt-5.5 | openai-responses | text | 200000 | 65536 |
 | gpt-5.6-sol | openai-responses | text, image | 372000 | 128000 |
 | gpt-5.6-terra | openai-responses | text, image | 372000 | 128000 |
@@ -70,7 +70,7 @@ trapi 使用混合模型适配器。Provider 级 `api` 只是默认值；模型�
   {"id":"PaddleOCR-VL-1.5","name":"PaddleOCR-VL-1.5 (Transiglobal)","api":"anthropic-messages","input":["text","image"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":131072,"maxTokens":8192},
   {"id":"deepseek-v4-pro","name":"DeepSeek V4 Pro (Transiglobal)","api":"anthropic-messages","input":["text"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":1000000,"maxTokens":384000},
   {"id":"deepseek-v4-flash","name":"DeepSeek V4 Flash (Transiglobal)","api":"anthropic-messages","input":["text"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":1000000,"maxTokens":384000},
-  {"id":"deepseek-flash","name":"DeepSeek Flash (Transiglobal)","api":"anthropic-messages","input":["text"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":1000000,"maxTokens":384000},
+  {"id":"deepseek-flash","name":"DeepSeek Flash (Transiglobal)","api":"anthropic-messages","input":["text","image"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":1000000,"maxTokens":384000},
   {"id":"gpt-5.5","name":"GPT-5.5 (Transiglobal)","api":"openai-responses","input":["text"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":200000,"maxTokens":65536},
   {"id":"gpt-5.6-sol","name":"GPT-5.6 Sol (Transiglobal)","api":"openai-responses","input":["text","image"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":372000,"maxTokens":128000},
   {"id":"gpt-5.6-terra","name":"GPT-5.6 Terra (Transiglobal)","api":"openai-responses","input":["text","image"],"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},"contextWindow":372000,"maxTokens":128000},
@@ -130,6 +130,7 @@ trapi 使用混合模型适配器。Provider 级 `api` 只是默认值；模型�
 - kimi-for-coding
 - GLM-5V-Turbo
 - PaddleOCR-VL-1.5
+- deepseek-flash
 - gpt-5.6-sol
 - gpt-5.6-terra
 - gpt-5.6-luna
