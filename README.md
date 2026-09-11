@@ -29,6 +29,7 @@ trapi 支持模型级 API 适配器，不要求所有模型统一使用 Anthropi
 | PaddleOCR-VL-1.5 | `pocr` | anthropic-messages | 文本、图片 | 131K | 8K |
 | deepseek-v4-pro | `dsv4p` | anthropic-messages | 文本 | 1M | 384K |
 | deepseek-v4-flash | `dsv4f` | anthropic-messages | 文本 | 1M | 384K |
+| deepseek-flash | `dsf` | anthropic-messages | 文本 | 1M | 384K |
 | gpt-5.5 | `gpt55` | openai-responses | 文本 | 200K | 65K |
 | gpt-5.6-sol | `g56s` | openai-responses | 文本、图片 | 372K | 128K |
 | gpt-5.6-terra | `g56t` | openai-responses | 文本、图片 | 372K | 128K |
